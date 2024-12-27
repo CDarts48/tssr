@@ -1,7 +1,9 @@
 import express from 'express';
 import compression from 'compression';
 import { renderPage } from 'vike/server';
-import { root } from './root.js'; // Ensure this points to the correct directory
+import path from 'path';
+
+const root = path.resolve(); // Ensure this points to the correct directory
 const isProduction = process.env.NODE_ENV === 'production';
 
 startServer();
@@ -16,7 +18,7 @@ async function startServer() {
     // In production, we need to serve our static assets ourselves.
     // (In dev, Vite's middleware serves our static assets.)
     const sirv = (await import('sirv')).default;
-    app.use(sirv(`${root}/dist`)); // Adjust the path to match your build output directory
+    app.use(sirv(`${root}/dist/client`)); // Adjust the path to match your build output directory
   } else {
     // We instantiate Vite's development server and integrate its middleware to our server.
     // ⚠️ We instantiate it only in development. (It isn't needed in production and it
