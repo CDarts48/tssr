@@ -13,18 +13,11 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Build the React app
+# Build the project
 RUN npm run build
-
-# Install a simple HTTP server to serve the static files
-RUN npm install -g serve
 
 # Expose the port the app runs on
 EXPOSE 3000
 
 # Command to run the app
 CMD ["node", "./server/index.js"]
-
-
-# Command to run the app
-CMD ["serve", "-s", "build", "-l", "5000"]
